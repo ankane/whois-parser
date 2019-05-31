@@ -31,7 +31,7 @@ module Whois
 
 
       property_supported :domain do
-        node("Domain name")
+        node("Domain Name")
       end
 
       property_not_supported :domain_id
@@ -72,24 +72,24 @@ module Whois
 
 
       property_supported :created_on do
-        node("Creation date") { |str| parse_time(str) }
+        node("Creation Date") { |str| parse_time(str) }
       end
 
       property_supported :updated_on do
-        node("Updated date") { |str| parse_time(str) }
+        node("Updated Date") { |str| parse_time(str) }
       end
 
       property_supported :expires_on do
-        node("Expiry date") { |str| parse_time(str) }
+        node("Registry Expiry Date") { |str| parse_time(str) }
       end
 
 
       property_supported :registrar do
-        node("Registrar") do |hash|
+        node("Registrar") do |str|
           Parser::Registrar.new(
-            id:           hash["Number"],
-            name:         hash["Name"],
-            organization: hash["Name"]
+            id:           node("Registrar IANA ID"),
+            name:         str,
+            url:          node("Registrar URL")
           )
         end
       end
